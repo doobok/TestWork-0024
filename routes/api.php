@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::post('/user-get', [\App\Http\Controllers\UserController::class, 'findUser']);
+Route::post('/user-create', [\App\Http\Controllers\UserController::class, 'createUser']);
+
+Route::get('/my-notes', [\App\Http\Controllers\NoteController::class, 'index']);
+Route::post('/create-note', [\App\Http\Controllers\NoteController::class, 'store']);
+Route::patch('/update-note/{id}', [\App\Http\Controllers\NoteController::class, 'update']);
+Route::delete('/delete-note/{id}', [\App\Http\Controllers\NoteController::class, 'destroy']);

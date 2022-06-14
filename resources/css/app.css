@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.overlay-blue-color {
+    background-color: rgba(8, 145, 178, 0.8);
+}
+.overlay-green-color {
+    background-color: rgba(34, 197, 94, 0.8);
+}
+.v-enter-active,
+.v-leave-active {
+    transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+    opacity: 0;
+}
