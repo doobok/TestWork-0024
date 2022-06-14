@@ -3,10 +3,13 @@
 @tailwind utilities;
 
 .overlay-blue-color {
-    background-color: rgba(8, 145, 178, 0.8);
+    background-color: rgba(8, 145, 178, 0.9);
 }
 .overlay-green-color {
-    background-color: rgba(34, 197, 94, 0.8);
+    background-color: rgba(4, 120, 87, 0.9);
+}
+.overlay-dark-color {
+    background-color: rgba(33, 33, 33, 0.9);
 }
 .v-enter-active,
 .v-leave-active {

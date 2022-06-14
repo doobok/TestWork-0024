@@ -1,7 +1,12 @@
 @extends('app')
 
+@section('head')
+    <title>Index Page TestWork 0024</title>
+@endsection
+
 @section('body')
 
-    <notes-component></notes-component>
+    @include('partials.first-screen')
+
 
 @endsection

@@ -23,7 +23,7 @@ export default {
     },
     actions: {
         GET_NOTES_FROM_DB: async (context, payload) => {
-            return Axios.get('/api/my-notes', { params: {id: payload }})
+            return Axios.get('/api/v1/notes', { params: {id: payload }})
                 .then((response) => {
                     context.commit('SET_NOTES', response.data)
                 })
@@ -32,7 +32,7 @@ export default {
                 });
         },
         CREATE_NOTE: async (context, payload) => {
-            return Axios.post('/api/create-note', payload )
+            return Axios.post('/api/v1/note', payload )
                 .then((response) => {
                     context.commit('UNSHIFT_NOTE', response.data)
                 })
@@ -41,9 +41,9 @@ export default {
                 });
         },
         UPDATE_NOTE: async (context, payload) => {
-            return Axios.patch('/api/update-note/' + payload.id)
+            return Axios.patch('/api/v1/note/' + payload.id)
                 .then((response) => {
-                    if (response.status === 200){
+                    if (response.status === 204){
                         context.commit('REMOVE_NOTE', payload.id)
                         context.commit('UNSHIFT_NOTE', payload)
                     } else {
@@ -55,9 +55,9 @@ export default {
                 });
         },
         DEL_NOTE: async (context, payload) => {
-            return Axios.delete('/api/delete-note/' + payload)
+            return Axios.delete('/api/v1/note/' + payload)
                 .then((response) => {
-                    if (response.status === 200){
+                    if (response.status === 204){
                         context.commit('REMOVE_NOTE', payload)
                     } else {
                         alert('Error! Please try again later')

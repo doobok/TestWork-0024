@@ -18,11 +18,10 @@ class NoteController extends Controller
      */
     public function index(Request $request)
     {
-        $user = Note::orderBy('id', 'desc')->get();
+        $user = User::find($request->id);
+        $notes = $user->notes()->get();
 
-        return response()->json($user);
-
-//        $notes = Note::where('user_id', )->get();
+        return response()->json($notes, 200);
     }
 
     /**
@@ -40,18 +39,7 @@ class NoteController extends Controller
             'user_id' => $request->user_id,
         ]);
 
-        return response()->json($note);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Note  $note
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Note $note)
-    {
-        //
+        return response()->json($note, 200);
     }
 
     /**
@@ -66,7 +54,7 @@ class NoteController extends Controller
         $note = Note::findOrFail($id);
         $note->update($request->all());
 
-        return response()->json(['success' => 'success'], 200);
+        return response()->json(['success' => 'success'], 204);
     }
 
     /**
@@ -75,10 +63,12 @@ class NoteController extends Controller
      * @param  \App\Models\Note  $note
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Request $request)
+    public function destroy($id)
     {
-        Note::destroy($request->id);
+        $note = Note::findOrFail($id);
+        $note->comments()->delete();
+        $note->delete();
 
-        return response()->json(['success' => 'success'], 200);
+        return response()->json(['success' => 'success'], 204);
     }
 }

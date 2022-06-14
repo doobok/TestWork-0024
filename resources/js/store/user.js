@@ -21,7 +21,7 @@ export default {
         GET_USER: (context) => {
             let user_id = checkLocalUser()
             if (user_id > 0) {
-                return Axios.post('/api/user-get', {id: user_id})
+                return Axios.get('/api/v1/user', { params: {id: user_id}})
                     .then((response) => {
                         context.commit('SET_USER', response.data)
                     })
@@ -38,7 +38,7 @@ export default {
             }
         },
         CREATE_USER: (context, payload) => {
-            return Axios.post('/api/user-create', {name: payload})
+            return Axios.post('/api/v1/user', {name: payload})
                 .then((response) => {
                     context.commit('SET_USER', response.data)
                     saveLocalUser(response.data.id)

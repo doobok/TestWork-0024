@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
-    <title>TestWork 0024</title>
+    @yield('head')
 </head>
 <body>
 <div id="app" class="bg-gray-100 font-sans leading-normal tracking-normal">

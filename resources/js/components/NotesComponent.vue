@@ -12,9 +12,12 @@
         </div>
         <div class="flex flex-wrap gap-2">
             <note-add @switchForm="switchForm"></note-add>
-            <note-item v-for="note in filteredNotes" :note="note" @switchForm="switchForm" :key="note.id"></note-item>
+            <note-item v-for="note in filteredNotes" :note="note" @switchForm="switchForm" @switchFullscreen="switchFullscreen" :key="note.id"></note-item>
         </div>
+
         <note-form :item="editedNote" :shown="showForm" @closeForm="switchForm"></note-form>
+        <note-fullscreen :item="editedNote" :fullscreen="showFullscreen" @closeFullscreen="switchFullscreen"></note-fullscreen>
+
     </div>
 
 </template>
@@ -28,6 +31,7 @@ export default {
             searchStr: '',
             editedNote: false,
             showForm: false,
+            showFullscreen: false,
         }
     },
     methods: {
@@ -35,13 +39,15 @@ export default {
         {
             this.editedNote = item;
             this.showForm = !this.showForm
+        },
+        switchFullscreen(item)
+        {
+            this.editedNote = item;
+            this.showFullscreen = !this.showFullscreen
         }
     },
-    mounted() {
-        this.$store.dispatch('GET_NOTES_FROM_DB')
-    },
     computed: {
-        ...mapGetters(['my_notes']),
+        ...mapGetters(['my_notes', 'user_state']),
 
         filteredNotes() {
             if (this.searchStr) {
@@ -49,9 +55,17 @@ export default {
                     return item.title.includes(this.searchStr);
                 });
             }
+            this.my_notes.sort(function(a, b) {
+                return - ( a.id - b.id );
+            });
             return this.my_notes
         }
     },
+    watch: {
+        user_state(newValue, oldValue) {
+            this.$store.dispatch('GET_NOTES_FROM_DB', this.user_state.id)
+        }
+    }
 
 }
 </script>

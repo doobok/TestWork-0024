@@ -2,7 +2,7 @@
     <Transition>
         <div v-if="shown" class="flex fixed left-0 top-0 w-full z-30 overlay-green-color h-screen cursor-auto">
             <div class="m-auto text-white">
-                <h3 class="text-white text-lg mb-2">Add new note</h3>
+                <h3 class="text-white text-2xl mb-2">{{ getTitle }} note</h3>
                 <form @submit.prevent="sendForm">
                     <div class="relative flex flex-col mb-2">
                         <label for="note_title" class="text-sm">Note title</label>
@@ -11,7 +11,7 @@
                             name="note_title"
                             type="text"
                             v-model="title"
-                            class="border-0 p-3 placeholder-gray-400 text-gray-700 bg-white w-72 rounded text-sm shadow focus:outline-none focus:ring w-full"
+                            class="border-0 p-3 placeholder-gray-400 text-gray-700 bg-white w-80 rounded text-sm shadow focus:outline-none focus:ring w-full"
                             placeholder="Title"
                             @blur="$v.title.$touch()"
                         />
@@ -24,7 +24,7 @@
                             id="note_text"
                             name="note_text"
                             v-model="text"
-                            class="border-0 p-3 placeholder-gray-400 text-gray-700 bg-white w-72 h-24 rounded text-sm shadow focus:outline-none focus:ring w-full"
+                            class="border-0 p-3 placeholder-gray-400 text-gray-700 bg-white w-80 h-32 rounded text-sm shadow focus:outline-none focus:ring w-full"
                             @blur="$v.text.$touch()"
                         ></textarea>
                         <span class="text-xs text-gray-500 absolute right-1 bottom-0">{{ text.length }}/140</span>
@@ -108,6 +108,9 @@ export default {
                 complete: this.complete,
                 user_id: this.user_state.id,
             }
+        },
+        getTitle() {
+            return (this.id > 0) ? 'Edit' : 'Create new'
         }
     },
     validations: {

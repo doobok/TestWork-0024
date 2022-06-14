@@ -14,6 +14,8 @@ Vue.component('notes-component', require('./components/NotesComponent.vue').defa
 Vue.component('note-add', require('./components/NoteAddCpomponent.vue').default);
 Vue.component('note-item', require('./components/NoteItemComponent.vue').default);
 Vue.component('note-form', require('./components/NotesFormComponent.vue').default);
+Vue.component('note-fullscreen', require('./components/NoteFullScreenComponent.vue').default);
+
 
 const app = new Vue({
     el: '#app',
