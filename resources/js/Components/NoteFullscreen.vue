@@ -60,6 +60,7 @@ import { mapGetters } from 'vuex';
 import { required, maxLength } from "vuelidate/lib/validators";
 
 export default {
+    name: "NoteFullscreen",
     data() {
         return {
             comment: ''

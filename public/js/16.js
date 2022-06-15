@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[16],{1016:(n,e,t)=>{t.r(e),t.d(e,{default:()=>o});const s={name:"Notes",components:{NotesComponent:function(){return t.e(571).then(t.bind(t,2571))}}};const o=(0,t(1900).Z)(s,(function(){var n=this.$createElement,e=this._self._c||n;return e("div",[e("notes-component")],1)}),[],!1,null,null,null).exports}}]);

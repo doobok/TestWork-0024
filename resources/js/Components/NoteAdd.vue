@@ -12,14 +12,12 @@
                 <span class="text-sm">Add new NOTE</span>
             </div>
         </div>
-
-
-
     </div>
 </template>
 
 <script>
 export default {
+    name: "NoteAdd",
     methods: {
         switchForm(){
             this.$emit('switchForm', false);

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\NoteController;
+use App\Http\Controllers\StatisticController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -23,12 +24,14 @@ Route::group(['prefix' => 'v1'], function () {
 
     Route::get('/notes', [NoteController::class, 'index']);
     Route::post('/note', [NoteController::class, 'store']);
-    Route::patch('/note/{id}', [NoteController::class, 'update']);
+    Route::put('/note/{id}', [NoteController::class, 'update']);
     Route::delete('/note/{id}', [NoteController::class, 'destroy']);
 
     Route::get('/comments', [CommentController::class, 'index']);
     Route::post('/comment', [CommentController::class, 'store']);
     Route::delete('/comment/{id}', [CommentController::class, 'destroy']);
+
+    Route::get('/statistic', [StatisticController::class, 'index']);
 
 });
 

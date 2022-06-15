@@ -13,5 +13,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/','pages.index')->name('index');
-Route::view('/notes','pages.notes')->name('notes');
+Route::view('/{uri?}','app');

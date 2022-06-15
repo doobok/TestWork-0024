@@ -13,7 +13,7 @@ export default {
         }
     },
     mutations: {
-        SET_USER: (state, payload, dispatch) => {
+        SET_USER: (state, payload) => {
             state.user = payload;
         },
     },

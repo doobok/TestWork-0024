@@ -37,6 +37,7 @@
 
 <script>
 export default {
+    name: "NoteItem",
     data() {
         return {
             colors: [

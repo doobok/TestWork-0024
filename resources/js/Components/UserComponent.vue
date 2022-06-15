@@ -1,6 +1,6 @@
 <template>
     <div>
-        <span>{{user_state.name}}</span>
+        <span>Hi, {{user_state.name}}!</span>
         <Transition>
             <div v-if="user_state.id === 0" class="flex fixed left-0 top-0 w-full z-30 overlay-blue-color h-screen cursor-auto">
                 <div class="m-auto min-w-sm text-white">
@@ -46,6 +46,7 @@ import { mapGetters } from 'vuex';
 import { required, minLength } from "vuelidate/lib/validators";
 
 export default {
+    name: "UserComponent",
     data(){
         return{
             name: '',
@@ -56,7 +57,7 @@ export default {
             this.$store.dispatch('CREATE_USER', this.name)
         }
     },
-    mounted() {
+    created() {
         this.$store.dispatch('GET_USER')
     },
     computed: {

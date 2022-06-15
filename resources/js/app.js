@@ -1,22 +1,19 @@
 import './bootstrap';
 
-// Vue
-window.Vue = require('vue').default;
-// store
-import store from './store/index';
-// валидатор форм
-import Vuelidate from 'vuelidate';
-Vue.use(Vuelidate);
+import Vue from "vue";
+import VueRouter from "vue-router";
+import Vuelidate from "vuelidate";
 
-Vue.component('user-component', require('./components/UserComponent.vue').default);
-Vue.component('notes-component', require('./components/NotesComponent.vue').default);
-Vue.component('note-add', require('./components/NoteAddCpomponent.vue').default);
-Vue.component('note-item', require('./components/NoteItemComponent.vue').default);
-Vue.component('note-form', require('./components/NotesFormComponent.vue').default);
-Vue.component('note-fullscreen', require('./components/NoteFullScreenComponent.vue').default);
+import router from "./Router/index";
+import store from "./Store/index";
+import App from "./App.vue";
 
+Vue.use(Vuelidate)
+Vue.use(VueRouter)
 
 const app = new Vue({
     el: '#app',
-    store
+    router,
+    store,
+    components: { App }
 });

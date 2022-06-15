@@ -54,7 +54,7 @@ class NoteController extends Controller
         $note = Note::findOrFail($id);
         $note->update($request->all());
 
-        return response()->json(['success' => 'success'], 204);
+        return response()->json($note, 200);
     }
 
     /**

@@ -26,6 +26,13 @@
 import {mapGetters} from "vuex";
 
 export default {
+    name: "NotesComponent",
+    components: {
+        NoteAdd: () => import('./NoteAdd'),
+        NoteItem: () => import('./NoteItem'),
+        NoteForm: () => import('./NoteForm'),
+        NoteFullscreen: () => import('./NoteFullscreen')
+    },
     data() {
         return {
             searchStr: '',
@@ -47,7 +54,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['my_notes', 'user_state']),
+        ...mapGetters(['my_notes']),
 
         filteredNotes() {
             if (this.searchStr) {
@@ -61,11 +68,8 @@ export default {
             return this.my_notes
         }
     },
-    watch: {
-        user_state(newValue, oldValue) {
-            this.$store.dispatch('GET_NOTES_FROM_DB', this.user_state.id)
-        }
+    mounted() {
+        this.$store.dispatch('GET_NOTES_FROM_DB')
     }
-
 }
 </script>

@@ -60,6 +60,7 @@ import { mapGetters } from 'vuex';
 import { required, maxLength } from "vuelidate/lib/validators";
 
 export default {
+    name: "NoteForm",
     props: ['shown', 'item'],
     data() {
         return {
@@ -71,23 +72,13 @@ export default {
     },
     methods: {
         sendForm(){
-            if (this.item) {
-                this.$store.dispatch('UPDATE_NOTE', this.note_payload)
-                    .then((response) => {
-                        this.closeForm()
-                    }).catch(error => {
-                    alert('Error! Please try again later')
-                    console.log(error);
-                });
-            } else {
-                this.$store.dispatch('CREATE_NOTE', this.note_payload)
-                    .then((response) => {
-                        this.closeForm()
-                    }).catch(error => {
-                    alert('Error! Please try again later')
-                    console.log(error);
-                });
-            }
+            this.$store.dispatch('CREATE_UPDATE_NOTE', this.note_payload)
+                .then((response) => {
+                    this.closeForm()
+                }).catch(error => {
+                alert('Error! Please try again later')
+                console.log(error);
+            });
         },
         closeForm(){
             this.id = 0
