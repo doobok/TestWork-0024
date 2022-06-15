@@ -8,7 +8,6 @@ import store from './store/index';
 import Vuelidate from 'vuelidate';
 Vue.use(Vuelidate);
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('user-component', require('./components/UserComponent.vue').default);
 Vue.component('notes-component', require('./components/NotesComponent.vue').default);
 Vue.component('note-add', require('./components/NoteAddCpomponent.vue').default);
