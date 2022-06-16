@@ -62,18 +62,88 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "UserComponent",
   data: function data() {
     return {
-      name: ''
+      register: false,
+      info: '',
+      name: '',
+      email: '',
+      password: '',
+      password_confirmation: ''
     };
   },
   methods: {
     sendForm: function sendForm() {
-      this.$store.dispatch('CREATE_USER', this.name);
+      var _this = this;
+
+      if (this.register) {
+        this.$store.dispatch('REGISTER_USER', {
+          name: this.name,
+          email: this.email,
+          password: this.password,
+          password_confirmation: this.password_confirmation
+        }).then(function (response) {
+          _this.info = response;
+        });
+      } else {
+        this.$store.dispatch('LOGIN_USER', {
+          email: this.email,
+          password: this.password
+        }).then(function (response) {
+          _this.info = response;
+        });
+      }
+    },
+    logout: function logout() {
+      this.$store.dispatch('LOGOUT_USER');
     }
   },
   created: function created() {
@@ -84,6 +154,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     name: {
       required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required,
       minLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.minLength)(4)
+    },
+    email: {
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required
+    },
+    password: {
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required,
+      minLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.minLength)(6)
+    },
+    password_confirmation: {
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required
     }
   }
 });
@@ -177,7 +257,41 @@ var render = function () {
   return _c(
     "div",
     [
-      _c("span", [_vm._v("Hi, " + _vm._s(_vm.user_state.name) + "!")]),
+      _c("span", { staticClass: "flex flex-nowrap" }, [
+        _vm._v("Hi, " + _vm._s(_vm.user_state.name) + "!\n        "),
+        _vm.user_state.id > 0
+          ? _c(
+              "span",
+              {
+                staticClass: "cursor-pointer ml-2",
+                attrs: { title: "Logout" },
+                on: { click: _vm.logout },
+              },
+              [
+                _c(
+                  "svg",
+                  {
+                    attrs: {
+                      width: "24",
+                      height: "24",
+                      xmlns: "http://www.w3.org/2000/svg",
+                      "fill-rule": "evenodd",
+                      fill: "currentColor",
+                      "clip-rule": "evenodd",
+                    },
+                  },
+                  [
+                    _c("path", {
+                      attrs: {
+                        d: "M8 9v-4l8 7-8 7v-4h-8v-6h8zm6-7c-1.787 0-3.46.474-4.911 1.295l.228.2 1.395 1.221c1.004-.456 2.115-.716 3.288-.716 4.411 0 8 3.589 8 8s-3.589 8-8 8c-1.173 0-2.284-.26-3.288-.715l-1.395 1.221-.228.2c1.451.82 3.124 1.294 4.911 1.294 5.522 0 10-4.477 10-10s-4.478-10-10-10z",
+                      },
+                    }),
+                  ]
+                ),
+              ]
+            )
+          : _vm._e(),
+      ]),
       _vm._v(" "),
       _c("Transition", [
         _vm.user_state.id === 0
@@ -219,70 +333,227 @@ var render = function () {
                   ]),
                   _vm._v(" "),
                   _c("h3", { staticClass: "text-white text-lg mb-2" }, [
-                    _vm._v("Please enter your name to continue!"),
+                    _vm._v("Login/Register form\n                    "),
+                    _c(
+                      "span",
+                      {
+                        staticClass: "font-bold cursor-pointer text-sm",
+                        on: {
+                          click: function ($event) {
+                            _vm.register = !_vm.register
+                          },
+                        },
+                      },
+                      [
+                        _vm._v(
+                          "(toggle to " +
+                            _vm._s(_vm.register ? "login" : "register") +
+                            ")"
+                        ),
+                      ]
+                    ),
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "relative" }, [
+                  _vm.register
+                    ? _c("div", { staticClass: "relative mb-2" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.name,
+                              expression: "name",
+                            },
+                          ],
+                          staticClass:
+                            "border-0 p-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full",
+                          attrs: {
+                            type: "text",
+                            name: "name",
+                            placeholder: "Your name",
+                          },
+                          domProps: { value: _vm.name },
+                          on: {
+                            blur: function ($event) {
+                              return _vm.$v.name.$touch()
+                            },
+                            input: function ($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.name = $event.target.value
+                            },
+                          },
+                        }),
+                        _vm._v(" "),
+                        _vm.$v.name.$error
+                          ? _c(
+                              "span",
+                              {
+                                staticClass:
+                                  "text-xs bg-red-500 text-white px-1 rounded-sm absolute right-1 top-1 opacity-75",
+                              },
+                              [_vm._v("min 4 characters")]
+                            )
+                          : _vm._e(),
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "relative mb-2" }, [
                     _c("input", {
                       directives: [
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.name,
-                          expression: "name",
+                          value: _vm.email,
+                          expression: "email",
                         },
                       ],
                       staticClass:
                         "border-0 p-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full",
                       attrs: {
-                        type: "text",
-                        name: "name",
-                        placeholder: "You name?",
+                        type: "email",
+                        name: "email",
+                        placeholder: "Your email",
                       },
-                      domProps: { value: _vm.name },
+                      domProps: { value: _vm.email },
                       on: {
                         blur: function ($event) {
-                          return _vm.$v.name.$touch()
+                          return _vm.$v.email.$touch()
                         },
                         input: function ($event) {
                           if ($event.target.composing) {
                             return
                           }
-                          _vm.name = $event.target.value
+                          _vm.email = $event.target.value
                         },
                       },
                     }),
                     _vm._v(" "),
-                    _vm.$v.name.$error
+                    _vm.$v.email.$error
                       ? _c(
                           "span",
                           {
                             staticClass:
                               "text-xs bg-red-500 text-white px-1 rounded-sm absolute right-1 top-1 opacity-75",
                           },
-                          [_vm._v("min 4 characters")]
+                          [_vm._v("error")]
                         )
                       : _vm._e(),
                   ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "relative mb-2" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.password,
+                          expression: "password",
+                        },
+                      ],
+                      staticClass:
+                        "border-0 p-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full",
+                      attrs: {
+                        type: "password",
+                        name: "password",
+                        placeholder: "Password",
+                      },
+                      domProps: { value: _vm.password },
+                      on: {
+                        blur: function ($event) {
+                          return _vm.$v.password.$touch()
+                        },
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.password = $event.target.value
+                        },
+                      },
+                    }),
+                    _vm._v(" "),
+                    _vm.$v.password.$error
+                      ? _c(
+                          "span",
+                          {
+                            staticClass:
+                              "text-xs bg-red-500 text-white px-1 rounded-sm absolute right-1 top-1 opacity-75",
+                          },
+                          [_vm._v("min 6 characters")]
+                        )
+                      : _vm._e(),
+                  ]),
+                  _vm._v(" "),
+                  _vm.register
+                    ? _c("div", { staticClass: "relative" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.password_confirmation,
+                              expression: "password_confirmation",
+                            },
+                          ],
+                          staticClass:
+                            "border-0 p-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full",
+                          attrs: {
+                            type: "password",
+                            name: "password_confirmation",
+                            placeholder: "Password confirmation",
+                          },
+                          domProps: { value: _vm.password_confirmation },
+                          on: {
+                            blur: function ($event) {
+                              return _vm.$v.password_confirmation.$touch()
+                            },
+                            input: function ($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.password_confirmation = $event.target.value
+                            },
+                          },
+                        }),
+                        _vm._v(" "),
+                        _vm.$v.password_confirmation.$error
+                          ? _c(
+                              "span",
+                              {
+                                staticClass:
+                                  "text-xs bg-red-500 text-white px-1 rounded-sm absolute right-1 top-1 opacity-75",
+                              },
+                              [_vm._v("error")]
+                            )
+                          : _vm._e(),
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.info
+                    ? _c("div", { staticClass: "mt-2" }, [
+                        _c("p", [_vm._v(_vm._s(_vm.info))]),
+                      ])
+                    : _vm._e(),
                   _vm._v(" "),
                   _c(
                     "button",
                     {
                       staticClass:
                         "bg-green-400 text-white w-full p-3 mt-3 text-sm font-bold uppercase rounded shadow hover:shadow-lg outline-none focus:outline-none",
-                      attrs: { type: "button", disabled: _vm.$v.$invalid },
+                      attrs: { type: "button" },
                       on: { click: _vm.sendForm },
                     },
                     [
-                      _vm.$v.$invalid
+                      _vm.register
                         ? [
                             _vm._v(
-                              "\n                        Fill the form\n                    "
+                              "\n                        Register\n                    "
                             ),
                           ]
                         : [
                             _vm._v(
-                              "\n                        Register\n                    "
+                              "\n                        Login\n                    "
                             ),
                           ],
                     ],

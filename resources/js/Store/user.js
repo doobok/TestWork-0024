@@ -37,16 +37,50 @@ export default {
                 })
             }
         },
-        CREATE_USER: (context, payload) => {
-            return Axios.post('/api/v1/user', {name: payload})
+        LOGIN_USER: (context, payload) => {
+            return Axios.post('/login', payload)
                 .then((response) => {
-                    context.commit('SET_USER', response.data)
-                    saveLocalUser(response.data.id)
+                    if (response.status === 200) {
+                        Axios.get('/api/v1/user', { params: {email: payload.email}})
+                            .then((response) => {
+                                context.commit('SET_USER', response.data)
+                                saveLocalUser(response.data.id)
+                            })
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                    return 'Login error!'
+                });
+        },
+        REGISTER_USER: (context, payload) => {
+            return Axios.post('/register', payload)
+                .then((response) => {
+                    if (response.status === 201) {
+                        Axios.get('/api/v1/user', { params: {email: payload.email}})
+                            .then((response) => {
+                                context.commit('SET_USER', response.data)
+                                saveLocalUser(response.data.id)
+                            })
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                    return 'Error! Check the form!'
+                });
+        },
+        LOGOUT_USER: (context) => {
+            return Axios.post('/logout')
+                .then((response) => {
+                    context.commit('SET_USER', {
+                        name: 'Incognito',
+                        id: 0,
+                    })
                 })
                 .catch(error => {
                     console.log(error);
                 });
-        }
+        },
     }
 }
 

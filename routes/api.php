@@ -18,9 +18,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 // V1 API
-Route::group(['prefix' => 'v1'], function () {
+Route::middleware('auth:sanctum')->prefix('v1')->group(function () {
     Route::get('/user', [UserController::class, 'findUser']);
-    Route::post('/user', [UserController::class, 'createUser']);
 
     Route::get('/notes', [NoteController::class, 'index']);
     Route::post('/note', [NoteController::class, 'store']);

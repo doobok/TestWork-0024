@@ -11,19 +11,10 @@ class UserController extends Controller
 {
     public function findUser(Request $request)
     {
-        $user = User::where('id', $request->id)->select('id', 'name')->firstOrFail();
+        $user = User::where('id', $request->id)->orWhere('email', $request->email)->select('id', 'name', 'email')->firstOrFail();
 
         return response()->json($user);
 
     }
 
-    public function createUser(Request $request)
-    {
-        $user = User::create([
-            'name' => $request->name,
-            'password' => bcrypt(Str::random(6))
-        ]);
-
-        return response()->json($user);
-    }
 }
